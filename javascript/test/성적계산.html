@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function YJMember(argId, argName) {
+        this.id   = argId;
+        this.name = argName;
+    }
+    YJMember.prototype.getId = function () { return this.id; }
+    YJMember.prototype.getName = function () { return this.name; }
+    YJMember.prototype.setName = function (argName) { return this.name = argName; }
+
+    function Student(argId, argName) {
+        YJMember.apply(this, [argId,argName])
+        this.courseGrade = [];
+        this.sum = 0;
+        this.avg = 0;
+    }
+    Student.prototype = Object.create(YJMember.prototype);
+    Student.prototype.constructor = Student;
+
+    Student.prototype.getSum = function () { return this.sum; }
+    Student.prototype.getAvg = function () { return this.avg; }
+    Student.prototype.calcSum = function () {
+        this.sum = 0;
+        for (let i = 0; i < this.courseGrade.length; i++){
+            this.sum += this.courseGrade[i];
+        }
+        return this.sum;
+    }
+    Student.prototype.calcAvg = function () {
+        this.calcSum();
+        this.avg = (this.calcSum() / this.courseGrade.length).toFixed(1); // 평균 소수점 첫번째 자리
+
+        return this.avg;
+    }
+    Student.prototype.addGrades = function (argJava, argDb, argJapanese) {
+        // this.courseGrade = [argJava,argDb,argJapanese];
+        this.courseGrade[0] = argJava;
+        this.courseGrade[1] = argDb;
+        this.courseGrade[2] = argJapanese;
+        this.calcSum();
+        this.calcAvg();
+    }
+
+    let stdList = []; // 사용자의 입력 값을 inputGrade 에서 배열로 넣기 위한 배열
+    function inputGrade () {
+        // html 로 부터 입력 받은 값을 가져옴
+        let stdName       = document.getElementById("name").value;                    // 이름
+        let stdId         = document.getElementById("num").value;                     // 학번
+        let gradeJava     = parseInt(document.getElementById("gradeJava").value);     // java
+        let gradeDb       = parseInt(document.getElementById("gradeDb").value);       // db
+        let gradeJapanese = parseInt(document.getElementById("gradeJapanese").value); // 일본어
+
+        // student 객체 생성, 학번 이름 추가
+        let newStd = new Student(stdId, stdName);
+        // java,db,일본어,합계,평균 추가
+        newStd.addGrades(gradeJava, gradeDb, gradeJapanese);
+        // stdList 에 배열로 위의 값들 추가
+        stdList.push(newStd);
+
+        let stArray = [stdId,stdName,gradeJava,gradeDb,gradeJapanese,newStd.getSum(),newStd.getAvg()]
+        let table   = document.getElementById("seiseki");
+        let addRow  = table.insertRow(table.rows.length); // 세로
+        // 순번 추가
+        let addCell =  addRow.insertCell(0)               // 가로
+        addCell.innerHTML = table.rows.length-1;
+
+        // 배열(이름, 학번, java, db, 일본어, 합계, 평균) 입력
+        for (let i = 1; i <= stArray.length; i++){
+            let addCell = addRow.insertCell(i);
+            addCell.innerHTML = stArray[i-1];
+        }
+    }
+    // 배열 추가
+    function inputTable() {
+        for (let myObj of stdList){
+            inputGrade([myObj.getId(),myObj.getName(),
+                        myObj.courseGrade[0], myObj.courseGrade[1], myObj.courseGrade[2],
+                        myObj.getSum(), myObj.getAvg()]
+            );
+        }
+    }
+    // 배열 삭제
+
+    // 정렬
+    function sortStd(argBoolean) {
+        if (argBoolean) {
+            stdList.sort(function (a, b) {
+                if (a.getSum() > b.getSum())
+                    return 1;
+                else if (a.getSum() < b.getSum())
+                    return -1
+                else
+                    return 0;
+            });
+        } else {
+            stdList.sort(function (a, b) {
+                if (a.getSum() < b.getSum())
+                    return 1;
+                else if (a.getSum() > b.getSum())
+                    return -1
+                else
+                    return 0;
+            });
+        }
+    }
+
+    function clickBt(argbt) {
+        switch (argbt) {
+            case "push" :
+                inputGrade();
+                break;
+            case "sortup":
+                sortStd(true);
+                break;
+            case "sortdw":
+                sortStd(false);
+                break;
+        }
+    }
+
+</script>
+<fieldset style="width:100%">
+    <form>
+        이름 : <input type="text" id="name">&nbsp
+        학번 : <input type="text" id="num">&nbsp
+        JAVA : <input type="text" id="gradeJava">&nbsp
+        DB : <input type="text" id="gradeDb">&nbsp
+        일본어 : <input type="text" id="gradeJapanese">&nbsp
+        <input type="button" value="성적 입 력" name="push" onclick="clickBt(this.name)">
+        <input type="button" value="정렬(오름)" name="sortup" onclick="clickBt(this.name)">
+        <input type="button" value="정렬(내림)" name="sortdw" onclick="clickBt(this.name)">
+    </form>
+</fieldset>
+<table id="seiseki" style="width:100%">
+    <tr>
+        <th>순번</th>
+        <th>학번</th>
+        <th>이름</th>
+        <th>JAVA</th>
+        <th>DB</th>
+        <th>일본어</th>
+        <th>총점</th>
+        <th>평균</th>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 지도를 보이기 위한 라이브러리 포함하기 -->
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+ 
+
+<script type="text/javascript">  
+
+function loadPost() {
+
+  if (!!navigator.geolocation) 
+
+  {
+
+    navigator.geolocation.getCurrentPosition(successCallback,errorCallback);  
+
+  }
+
+  else
+
+  {
+
+    alert("이 브라우저는 Geolocation를 지원하지 않습니다");
+
+  }
+
+}    
+
+ 
+
+function errorCallback(error)
+
+{
+
+    alert(error.message);
+
+}    
+
+ 
+
+function successCallback(position) { 
+
+        var lat = position.coords.latitude;
+
+        var lng = position.coords.longitude;
+
+        // 취득한 좌표로 추가 로직을 첨부하면 됩니다. 
+
+}
+
+</script>
+
+<body onload="loadPost();"> 
+</head>
+<body>
+    
+</body>
+</html>

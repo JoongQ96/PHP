@@ -1,0 +1,43 @@
+<html>
+
+<head>
+
+<script>
+
+function successCallback(position) {
+
+	alert(position.coords.latitude + " : " + position.coords.longitude);	
+
+}
+
+
+function errorCallback(error) {
+
+	alert(error.message);
+
+}
+
+
+function load(){ 
+
+	if ( navigator.geolocation ) {
+
+		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+	} else {
+
+		alert("geolocation not supported");
+
+	}
+
+}
+
+</script>
+
+</head>
+
+<body onload="load()">
+
+</body>
+
+</html>
