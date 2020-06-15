@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Ajax</title>
+</head>
+<body>
+<script>
+    function execHttpRequest() {
+        let xmlHttpReq = new XMLHttpRequest();
+
+        xmlHttpReq.onreadystatechange = function() {
+            if(xmlHttpReq.readyState == 4) {
+                let statusElement = document.getElementById("status");
+                statusElement.innerText = xmlHttpReq.responseText;
+            }
+        }
+        // POST 방식 DATA 전달
+        // HTTP Request를 POST 방식으로 서버 전송 시, 서버에 전달 하고자 하는 변수 구성은 GET과 동일
+        // 변수명=변수 값, 두 개 이상의 변수 전달 시 & 를 이용
+        // 정의된 변수는 URL에 추가되지 않고, HTTP Request Body에 포함 된다.
+        // 서버에 전달하고자 하는 데이터를 HTTP request header에 삽입하기 위해,
+        // XMLHTTPRequest.setRequestHeader()사용 필요
+
+        xmlHttpReq.open("POST", "myajax3.php?", true);
+        // HTTP request body 내 테이터의 MIME 자료형 정의 : HTTP form 데이터 형, wikipedia "MIME" 검색
+        xmlHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        var myData = 'name=정영철&age=22';     // name, age 변수를 "정영철",22로 설정
+        xmlHttpReq.send(myData);      // send 메서드 호출 시 서버 전달 DATA 입력
+    }
+</script>
+<fieldset style="width:400px">
+    <legend>Ajax HTTP POST 전송 예제</legend>
+    <!-- 버튼 클릭 시, execHttpRequest() 자바 스크립트 함수 실행 -->
+    <input type="button" id="ajaxTest" value="Async HTTP POST 전송" onclick="execHttpRequest()"><br>
+    <div id="status"></div>
+</fieldset>
+</body>
+</html>

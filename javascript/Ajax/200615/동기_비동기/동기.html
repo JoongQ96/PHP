@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Ajax</title>
+</head>
+<body>
+
+<script>
+    function execHttpRequest(isSynchMode) {
+        let xmlHttpReq = new XMLHttpRequest();
+        xmlHttpReq.onreadystatechange = () => console.log(xmlHttpReq.readyState);
+        xmlHttpReq.open("GET", "myajax.php", isSynchMode); // isSynchMode : false 동기 전송
+        xmlHttpReq.send();
+
+        console.log("Sent HTTP Request");
+    }
+</script>
+<fieldset style="width:400px">
+    <legend>Ajax HTTP Request 동기 vs 비동기 전송 예제</legend>
+    <!-- 버튼 클릭 시, execHttpRequest() 자바스크립트 함수 실행 -->
+    <!-- 함수 인자 값:false 동기 방식으로 HTTP request 메시지 전송 -->
+    <input type="button" id="ajaxTest" value="Sync HTTP 전송" onclick="execHttpRequest(false)"><br>
+</fieldset>
+
+</body>
+</html>
+
+

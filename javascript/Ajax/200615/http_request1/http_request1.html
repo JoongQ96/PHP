@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Ajax</title>
+</head>
+<body>
+<!--p22-->
+<script>
+    function execHttpRequest(isSynchMode) {
+        let xmlHttpReq = new XMLHttpRequest();
+        // HTTP request 송신에 따른 송신 상태(readState) 변화 Event 처리 함수
+        // 송신 상태(State)은 4개로 정의 : 실행 순서(Happy scenario)는 0 -> 1 -> 2 -> 3 -> 4
+        // 0 UNSET            : XMLHttpRequest 객체 생성 시 -> 초기 값
+        // 1 OPENED           : XMLHttpRequest.open() 메서드 호출 시
+        // 2 HEADERS_RECEIVED : XMLHttpRequest.send() 호출 후 HTTP response 메시지 수신 시 (HTTP header 획득)
+        // 3 LOADING          : HTTP response body 메시지 수시 중
+        // 4 DONE             : 웹 서버로부터 HTTP response 메시지 수신 완료
+        // 동기 HTTP request의 경우 1,4 상태만 존재
+        xmlHttpReq.onreadystatechange = function() {
+            if(xmlHttpReq.readyState == 1) {
+                console.log("readyState : 1 OPENED");
+            } else if(xmlHttpReq.readyState == 2) {
+                console.log("readyState : 2 HEADERS_RECEIVED");
+            } else if(xmlHttpReq.readyState == 3) {
+                console.log("readyState : 3 LOADING");
+            } else if(xmlHttpReq.readyState == 4) {
+                console.log("readyState : 4 DONE");
+            } else {
+                console.log("Something is wrong, write log file!!");
+            }
+        }
+        console.log("readyState value before calling xmlHttpReq.open() : " + xmlHttpReq.readyState);
+
+        xmlHttpReq.open("GET", "myajax.php", isSynchMode); // isSynchMode : true 비동기 전송
+        xmlHttpReq.send();
+
+        console.log("Sent HTTP Request");
+    }
+</script>
+<fieldset style="width:400px">
+    <legend>Ajax HTTP Request 전송 상태 확인 예제</legend>
+    <!-- 버튼 클릭 시, execHttpRequest() 자바스크립트 함수 실행 -->
+    <!-- 함수 인자 값:true 비동기 방식으로 HTTP request 메시지 전송 -->
+    <input type="button" id="ajaxTest" value="Async HTTP 전송" onclick="execHttpRequest(true)"><br>
+</fieldset>
+
+
+</body>
+</html>

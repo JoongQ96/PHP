@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Ajax</title>
+</head>
+<body>
+<!--p25-->
+
+<script>
+    function execHttpRequest(isSynchMode) {
+        let xmlHttpReq = new XMLHttpRequest();
+
+        xmlHttpReq.onreadystatechange = function() {
+            let statusElement = document.getElementById("status");
+
+            if(xmlHttpReq.readyState == 1) {
+                // console.log("readyState : 1 OPENED"); for debugging
+            } else if(xmlHttpReq.readyState == 2) {
+                // console.log("readyState : 2 HEADERS_RECEIVED"); for debugging
+            } else if(xmlHttpReq.readyState == 3) {
+                statusElement.style.color = "RED";
+                statusElement.innerText = "HTTP Response에서 메세지 수신 중";
+            } else if(xmlHttpReq.readyState == 4) {
+                statusElement.style.color = "BLUE";
+                statusElement.innerText = "HTTP Response에서 메세지 수신 완료";
+            } else {
+                console.log("Something is wrong, write log file!!");
+            }
+        }
+        xmlHttpReq.open("GET", "myajax.php", isSynchMode); // isSynchMode : true 비동기 전송
+        xmlHttpReq.send();
+
+        let statusElement = document.getElementById("status");
+        statusElement.style.color = "black";
+        statusElement.innerText = "HTTP Response에서 메세지 전송";
+    }
+</script>
+<fieldset style="width:400px">
+    <legend>Ajax HTTP Request 전송 상태 활용 예제</legend>
+    <!-- 버튼 클릭 시, execHttpRequest() 자바스크립트 함수 실행 -->
+    <!-- 함수 인자 값:true 비동기 방식으로 HTTP request 메시지 전송 -->
+    <input type="button" id="ajaxTest" value="Async HTTP 전송" onclick="execHttpRequest(true)"><br>
+    <div id="status"></div>
+</fieldset>
+
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // HTTP Request 송신 함수
+    function sendXMLHttpRequest() {
+        // XMLHttpRequest 객체 생성
+        var httpReq = new XMLHttpRequest();
+
+        // ready state 변화에 따른 동작 코드 정의
+        httpReq.onreadystatechange = function () {
+            // http response 메시지를 성공적으로 받았고, 그 결과가 200 OK인 경우
+            if (httpReq.readyState == 4 && httpReq.status == 200) {
+                // 현 DOM에서 "answer" ID를 가지는 HTML element의 값을
+                // HTTP response로 넘어온 값으로 설정
+                document.getElementById("answer").innerHTML = httpReq.responseText;
+            }
+        }
+        // XMLHttpRequest 속성 설정
+        // 1) HTTP 방식 : POST or GET
+        // 2) 요청  파일 : 현 페이지와 같은 서버 내 파일
+        //               대부분의 웹 브라우저에서 across domain 허용 안함
+        // 3) 동기, 비동기 설정
+        httpReq.open("GET", "myajax.php", true);
+
+        // 설정된 HTTP Request 동기 방식으로 전송
+        httpReq.send();
+    }
+</script>
+<fieldset style="width:400px">
+    <legend>Ajax 예제</legend>
+    <!--버튼 클릭시, sendXMLHttpRequest() 자바스크립트 함수 실행-->
+    <input type="button" id="ajaxTest" value="Async HTTP 전송" onclick="sendXMLHttpRequest()"><br>
+    <label for="ajaxTest"> 전송 후 수신 값 : </label>
+    <div id="answer"></div> <!--Ajax 통신 후 결과 값을 출력하기 위해 사용-->
+</fieldset>
+</body>
+</html>
