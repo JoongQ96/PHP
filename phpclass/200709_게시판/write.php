@@ -9,6 +9,7 @@
 </head>
 <body>
 <script>
+
     // 공란 검사, 버튼 클릭시 실행 되는 함수
     function login(){
         // loginForm 설정, JavaScript에서 Submit을 제어하기 위해
