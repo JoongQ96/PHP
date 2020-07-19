@@ -29,7 +29,6 @@ $modifyContent      = $_GET['changeContent'];        // 변경할 내용
 $checkPasswd = $_GET['checkPasswd'];      // 입력한 비밀번호
 
 ////////////////////////////////////////////////////////////////////
-
 echo "boardID : ".$boardID."<br>";
 echo "userTitle : ".$userTitle."<br>";
 echo "userName : ".$userName."<br>";

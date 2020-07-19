@@ -13,7 +13,6 @@
 // board_id 값 획득, 무결성 검사
 // board_id 값 이요 DB로 부터 정보 획득
 // 획득된 필드 정보를 HTML 출력
-
 echo "<h3>modifty 페이지 입니다.<br>";
 require_once('write_process.php');
 
