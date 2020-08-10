@@ -64,6 +64,20 @@ class board_Query {
 
         return $selectResult->fetch_array();
     }
+    ////////////////////////////////////////////////////////
+    // 교수님 코드 보고 추가해봄..
+    public function selectBoardId($boardID){
+        $sql = "select * from board where board_id='{$boardID}'";
+        $result = board_Query::$db_conn->query($sql);
+
+        if (!($result)) {
+            // prtErrorMsg();
+        }
+
+        return $result->fetch_object();
+
+    }
+    ////////////////////////////////////////////////////////////
 
     // -->> view 조회수 증가 함수
     public function hitUp($pickTitleNum){
