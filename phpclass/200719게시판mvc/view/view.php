@@ -1,28 +1,10 @@
-<?php
-session_start();
-require_once ('../model/boardModel.php');
-require_once ('../controller/library.php');
-
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
-$pickTitleNum = $_GET['board_id'];  // list에서 받아온 게시판 글 번호
-$obj = new board_Query();
-$obj->hitUp($pickTitleNum);                       // 조회수 증가 함수
-$boardValue = $obj->selectBoardId($pickTitleNum); // 받아온 board_id 값으로 게시글 선택
-
-$searchKeyword = $_GET['keyword'];                // 검색 option 선택 keyword
-$searchText    = $_GET['searchText'];             // 검색 내용
-$searchBtn     = $_GET['searchBtn'];              // 검색 버튼 누른 것에 대한 값
-$nowPage       = $_GET['nowPage'];                // list의 페이징 된 버튼을 클릭한 경우 페이지 번호
-
-?>
+<?php session_start(); ?>
 <fieldset style="width: 50%">
     <legend>
         글보기 글번호<?php echo $boardValue->board_id; ?>
     </legend>
     <!-- list에서 선택한 게시글 출력 -->
-    <form action="modify.php" method="post">
+    <form action="../controller/modifyProcess.php" method="post">
         <table>
             <tr><td>제목</td><td><?php echo $boardValue->title; ?></td></tr>
             <tr><td>작성자</td><td><?php echo $boardValue->user_name; ?></td></tr>
@@ -34,12 +16,12 @@ $nowPage       = $_GET['nowPage'];                // list의 페이징 된 버�
                     <?php
                     if ($searchKeyword != null){    // list에서 검색 한 경우
                         echo "<input type='button' name='list' value='글 목록' 
-                              onclick=\"location.href='list.php?board_id={$boardValue->board_id}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn={$searchBtn}&nowPage={$nowPage}'\">";
+                              onclick=\"location.href='../view/main.php?board_id={$boardValue->board_id}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn={$searchBtn}&nowPage={$nowPage}'\">";
                     } else{
                         if ($nowPage != null){      // list에서 검색 안한 경우, nowPage 있을때
-                            echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='list.php?nowPage={$nowPage}'\">";
+                            echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='../view/main.php?nowPage={$nowPage}'\">";
                         } else{                     // list에서 검색 안한 경우, nowPage 없을때, 즉 default page
-                            echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='list.php?nowPage=1'\">";
+                            echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='../view/main.php?nowPage=1'\">";
                         }
                     }
                     ?>
@@ -47,7 +29,7 @@ $nowPage       = $_GET['nowPage'];                // list의 페이징 된 버�
                     <input type="hidden" name="boardUserName" value="<?php echo $boardValue->user_name; ?>">
                     <?php if ($_SESSION['id'] == $boardValue->user_name): ?>
                         <input type="submit" name="modify" value="글 수정" id="modify"
-                               onclick="location.href='modify.php'">
+                               onclick="location.href='../controller/modifyProcess.php'">
                         <input type="button" name="delete" value="글 삭제" id="delete"
                                onclick="location.href='delete.php?board_id=<?php echo $pickTitleNum; ?>'">
                     <?php endif; ?>
@@ -86,7 +68,7 @@ $nowPage       = $_GET['nowPage'];                // list의 페이징 된 버�
     <form action="" method="post">
         <table>
             <tr><td>작성자</td><td>코멘트</td><td>작성일</td><td>삭제</td></tr>
-            <? //showComment($boardValue->board_id, $nowPage); // 덧글 출력 기능 (게시글 번호, 현재 페이지 번호) ?>
+            <? $obj->showComment($boardValue->board_id, $nowPage); // 덧글 출력 기능 (게시글 번호, 현재 페이지 번호) ?>
         </table>
     </form>
 

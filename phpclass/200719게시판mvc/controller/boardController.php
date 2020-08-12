@@ -10,6 +10,6 @@ echo "ddd".$userID;
 //} else {
 //}
 
-include_once "view/main.php";
+include_once "../view/main.php";
 
 

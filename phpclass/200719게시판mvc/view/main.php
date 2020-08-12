@@ -103,7 +103,7 @@
     <article>
         <h2>Main Content</h2>
         <!------------------------------------------- 게시판 ------------------------------------------------------------------->
-        <form action="view.php" method="get">
+        <form action="../controller/viewProcess.php" method="get">
             <table class="table">
                 <tr><th colspan="5">JoongKyu 게시판</th></tr>
                 <tr style="border: #2b303b"><td>번호</td><td>제목</td><td>작성자</td><td>조회수</td><td>날짜</td></tr>
@@ -113,7 +113,7 @@
                 $obj = new board_Query();
 
                 // $pagingSql     = "select * from board where board_pid = 0";
-                $clickPageButton   = isset($_GET['nowPage'])? $_GET['nowPage']: 1;      // 클릭한 버튼의 입력값 받아옴
+                $clickPageButton = isset($_GET['nowPage'])? $_GET['nowPage']: 1;      // 클릭한 버튼의 입력값 받아옴
                 $pagingSql     = $obj->querySelect("paging","board", 0, 0);
 
                 $pagingResult  = board_Query::$db_conn->query($pagingSql);
@@ -133,6 +133,7 @@
                 $changeSql = $obj->listQuery($clickPageButton, $showTextNum, $searchKeyword, $searchText);
 
                 ?>
+                <input type="hidden" name="board_id" value="">
                 <input type="hidden" name="thisPage" value="<?php echo $clickPageButton; ?>">
             </table>
         </form>

@@ -65,14 +65,13 @@ class board_Query {
         return $selectResult->fetch_array();
     }
     ////////////////////////////////////////////////////////
-    // 교수님 코드 보고 추가해봄..
     public function selectBoardId($boardID){
         $sql = "select * from board where board_id='{$boardID}'";
         $result = board_Query::$db_conn->query($sql);
 
-        if (!($result)) {
-            // prtErrorMsg();
-        }
+//        if (!($result)) {
+//            // prtErrorMsg();
+//        }
 
         return $result->fetch_object();
 
@@ -119,6 +118,17 @@ class board_Query {
         $this->errorMsg($result);
     }
     // write 쿼리, 글 등록 함수 <<--
+
+    function modify($getUserInfo, $boardID){
+
+        $sql = "update board set title = '{$getUserInfo['title']}', user_name = '{$getUserInfo['name']}', 
+                                  contents = '{$getUserInfo['content']}', reg_date = now() where board_id = {$boardID}";
+        $result = board_Query::$db_conn->query($sql);
+
+        // DB로 쿼리 전송 실패인 경우 프로그램 종료
+        $this->errorMsg($result);
+    }
+
 
 
     // -->> DB 쿼리 전송시 error 출력 메세지
@@ -172,9 +182,9 @@ class board_Query {
             echo "<tr>";
             echo "<td>".$showRow['board_id']."</td>";
             if ($searchKeyword == null){    // 검색을 안한 경우
-                echo "<td><a href='view.php?board_id={$showRow['board_id']}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
+                echo "<td><a href='../controller/viewProcess.php?board_id={$showRow['board_id']}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
             }else{                          // 검색을 한 경우
-                echo "<td><a href='view.php?board_id={$showRow['board_id']}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn=검색&thisPage={$clickPageButton}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
+                echo "<td><a href='../controller/viewProcess.php?board_id={$showRow['board_id']}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn=검색&thisPage={$clickPageButton}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
             }
             echo "<td>".$showRow['user_name']."</td>";
             echo "<td>".$showRow['hits']."</td>";
@@ -183,8 +193,36 @@ class board_Query {
         }
         return $changeSql; // 검색시 변환할 쿼리 반환
     }
-// <<--
+    // <<--
 
+    // -->> 덧글 출력용 함수
+    function showComment($boardID, $nowPage){
+
+        // 덧글 출력 기능
+        $commentViewSql = "select * from board where board_pid = {$boardID}";
+        $resultCommentViewSql = board_Query::$db_conn->query($commentViewSql);
+
+        // 덧글 출력
+        while ($commentView = $resultCommentViewSql->fetch_array()){
+            echo "<tr>";
+            echo "<td>".$commentView['user_name']."</td>";
+            echo "<td>".$commentView['contents']."</td>";
+            echo "<td>".$commentView['reg_date']."</td>";
+            ?>
+            <input type="hidden" name="nowPage" value="<?php echo $nowPage; ?>">
+            <input type="hidden" name="boardID" value="<?php echo $boardID; ?>">
+            <input type="hidden" name="commentUserID" value="<?php echo $commentView['board_id']; ?>">
+            <input type="hidden" name="commentUserName" value="<?php echo $commentView['user_name']; ?>">
+            <input type="hidden" name="commentUserContents" value="<?php echo $commentView['contents']; ?>">
+            <input type="hidden" name="commentUserDate" value="<?php echo $commentView['reg_date']; ?>">
+            <?
+            if ($_SESSION['id'] == $commentView['user_name']) {
+                echo "<td><input type='submit' name='deleteComment' value='삭제'></td>";
+            }
+            echo "</tr>";
+        }
+    }
+// <<--
 
 
 }
