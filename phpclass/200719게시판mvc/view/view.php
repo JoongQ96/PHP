@@ -1,10 +1,8 @@
 <?php session_start(); ?>
 <fieldset style="width: 50%">
-    <legend>
-        글보기 글번호<?php echo $boardValue->board_id; ?>
-    </legend>
+    <legend>글보기 글번호<?php echo $boardValue->board_id; ?></legend>
     <!-- list에서 선택한 게시글 출력 -->
-    <form action="../controller/modifyProcess.php" method="post">
+    <form action="../controller/modifyController.php" method="post">
         <table>
             <tr><td>제목</td><td><?php echo $boardValue->title; ?></td></tr>
             <tr><td>작성자</td><td><?php echo $boardValue->user_name; ?></td></tr>
@@ -29,7 +27,7 @@
                     <input type="hidden" name="boardUserName" value="<?php echo $boardValue->user_name; ?>">
                     <?php if ($_SESSION['id'] == $boardValue->user_name): ?>
                         <input type="submit" name="modify" value="글 수정" id="modify"
-                               onclick="location.href='../controller/modifyProcess.php'">
+                               onclick="location.href='../controller/modifyController.php'">
                         <input type="button" name="delete" value="글 삭제" id="delete"
                                onclick="location.href='delete.php?board_id=<?php echo $pickTitleNum; ?>'">
                     <?php endif; ?>

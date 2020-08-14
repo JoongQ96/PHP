@@ -8,6 +8,7 @@
 
 
 //  -->> 공란 체크 함수
+// -> construct 상속????, 추후에 클래스로 만들자!
 function contentCheck($getUserInfo, $goBackPage) {
     $array = [];    // 입력 받은 값들을 담을 배열
 

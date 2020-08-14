@@ -24,10 +24,9 @@
             <tr><td colspan="2"><textarea name='content' cols='80' rows='20'><?php echo $boardValue->contents; ?></textarea></td></tr>
             <tr>
                 <td colspan="2">
-                    <input type="button" name="list" value="글 목록" onclick="location.href='main.php'">
-                    <input type="hidden" name="CheckBoardID" value="<?php echo $boardValue->board_id; ?>">
-                    <input type="hidden" name="thisUserName" value="<?php echo $boardValue->usr_name?>">
-                    <input type="submit" name="modify" value="글 수정" onclick="location.href='../controller/modifyController.php'">
+                    <input type="button" name="list" value="글 목록" onclick="location.href='../view/main.php'">
+                    <input type="hidden" name="CheckBoardID" value="<?php echo $boardValue->board_id;?>">
+                    <input type="submit" name="modify" value="글 수정">
                 </td>
             </tr>
         </table>
