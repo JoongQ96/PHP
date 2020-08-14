@@ -131,6 +131,18 @@ class board_Query {
     }
     // <<--
 
+    // -->> delete 쿼리, 글 삭제 함수
+    function delete($boardID){
+
+        $sql ="delete from board where board_id = {$boardID}"; // 테이블 제거
+        $result = board_Query::$db_conn->query($sql);
+
+        // DB로 쿼리 전송 실패인 경우 프로그램 종료
+        $this->errorMsg($result);
+    }
+
+
+
     // -->> DB 쿼리 전송시 error 출력 메세지
     public function errorMsg($result){
         if (!$result){

@@ -40,7 +40,6 @@
     <title>Document</title>
 </head>
 <body>
-
 <header>
     <table class="myTable">
         <tr>
@@ -55,11 +54,7 @@
         <h3>메인메뉴</h3>
         <!------------------------------------------- 로그인 ------------------------------------------------------------------->
         <?php
-//        error_reporting(E_ALL);
-//        ini_set("display_errors", 1);
-
         session_start();
-
         if (isset($_POST['logout'])) {
             // 새로고침 할 경우 세션이 종료를 방지
             // logout 세션이 있는 경우
@@ -97,7 +92,6 @@
         <?php if(isset($_SESSION['id'])): // 로그인 한 경우에 버튼 출력 ?>
             <button onclick="location.href='write.php'">글쓰기</button>
         <?php endif; ?>
-
     </nav>
 
     <article>

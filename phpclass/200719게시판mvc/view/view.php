@@ -29,7 +29,7 @@
                         <input type="submit" name="modify" value="글 수정" id="modify"
                                onclick="location.href='../controller/modifyController.php'">
                         <input type="button" name="delete" value="글 삭제" id="delete"
-                               onclick="location.href='delete.php?board_id=<?php echo $pickTitleNum; ?>'">
+                               onclick="location.href='../controller/deleteController.php?board_id=<?php echo $pickTitleNum; ?>'">
                     <?php endif; ?>
                 </td>
             </tr>
