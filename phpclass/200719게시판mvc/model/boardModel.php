@@ -209,7 +209,6 @@ class board_Query {
 
     // -->> 덧글 출력용 함수
     function showComment($boardID, $nowPage){
-
         // 덧글 출력 기능
         $commentViewSql = "select * from board where board_pid = {$boardID}";
         $resultCommentViewSql = board_Query::$db_conn->query($commentViewSql);
@@ -235,6 +234,7 @@ class board_Query {
         }
     }
 // <<--
+
 
 
 }

@@ -90,7 +90,7 @@
         ?>
         <!------------------------------------------- 글쓰기 ------------------------------------------------------------------->
         <?php if(isset($_SESSION['id'])): // 로그인 한 경우에 버튼 출력 ?>
-            <button onclick="location.href='write.php'">글쓰기</button>
+            <button onclick="location.href='../controller/writeController.php'">글쓰기</button>
         <?php endif; ?>
     </nav>
 
