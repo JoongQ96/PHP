@@ -108,8 +108,8 @@ class board_Query {
     // -->> write 쿼리, 글 등록 함수
     public function write($getUserInfo){
 
-        $query = "insert into board (user_name, user_passwd, title, contents, reg_date)
-                  values ('{$getUserInfo['id']}','{$getUserInfo['password']}', 
+        $query = "insert into board (board_pid, user_name, user_passwd, title, contents, reg_date)
+                  values ('{$getUserInfo['pid']}','{$getUserInfo['id']}','{$getUserInfo['password']}', 
                           '{$getUserInfo['title']}', '{$getUserInfo['content']}', now())";
 
         $result = board_Query::$db_conn->query($query);
@@ -208,9 +208,9 @@ class board_Query {
     // <<--
 
     // -->> 덧글 출력용 함수
-    function showComment($boardID, $nowPage){
+    function showComment($boardID){
         // 덧글 출력 기능
-        $commentViewSql = "select * from board where board_pid = {$boardID}";
+        $commentViewSql       = "select * from board where board_pid = {$boardID}";
         $resultCommentViewSql = board_Query::$db_conn->query($commentViewSql);
 
         // 덧글 출력
@@ -220,13 +220,8 @@ class board_Query {
             echo "<td>".$commentView['contents']."</td>";
             echo "<td>".$commentView['reg_date']."</td>";
             ?>
-            <input type="hidden" name="nowPage" value="<?php echo $nowPage; ?>">
-            <input type="hidden" name="boardID" value="<?php echo $boardID; ?>">
             <input type="hidden" name="commentUserID" value="<?php echo $commentView['board_id']; ?>">
-            <input type="hidden" name="commentUserName" value="<?php echo $commentView['user_name']; ?>">
-            <input type="hidden" name="commentUserContents" value="<?php echo $commentView['contents']; ?>">
-            <input type="hidden" name="commentUserDate" value="<?php echo $commentView['reg_date']; ?>">
-            <?
+            <?php
             if ($_SESSION['id'] == $commentView['user_name']) {
                 echo "<td><input type='submit' name='deleteComment' value='삭제'></td>";
             }

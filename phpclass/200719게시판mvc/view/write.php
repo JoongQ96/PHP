@@ -27,6 +27,7 @@
             <tr><td colspan="2"><textarea name='content' cols='80' rows='20'></textarea></td>
             <tr>
                 <td colspan="2">
+                    <input type="hidden" name="newBoard" value="newBoard">
                     <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
                     <input type="hidden" name="password" value="<?php echo $_SESSION['password']; ?>">
                     <input type="hidden" name="loginType" value="admin">

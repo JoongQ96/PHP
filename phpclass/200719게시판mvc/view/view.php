@@ -39,19 +39,20 @@
     <br><br>
     <?php if (isset($_SESSION['id'])): // login 한 경우 ?>
         <!-- 덧글 작성, login 한 사람만 작성 가능 -->
-        <form action="" method="post">
+        <form action="../controller/writeProcess.php" method="post">
             <table>
                 <tr><td>댓글</td></tr>
                 <tr>
                     <td>작성자</td>
                     <td>
                         <?php echo $_SESSION['id']; ?>
-                        <input type="hidden" name="name" value="<?php echo $_SESSION['id']; ?>">
                     </td>
                 </tr>
                 <tr><td>코멘트</td><td><input type="text" name="content"></td></tr>
                 <tr>
                     <td>
+                        <input type="hidden" name="newComment" value="newComment">
+                        <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
                         <input type="hidden" name="password" value="<?php echo $_SESSION['password']; ?>">
                         <input type="hidden" name="pid" value="<?php echo $boardValue->board_id; ?>">
                         <input type="hidden" name="CheckNowPage" value="<?php echo $nowPage; ?>">
@@ -63,10 +64,13 @@
     <?php endif; ?>
     <br><br>
     <!-- 덧글 출력 -->
-    <form action="" method="post">
+    <form action="../controller/deleteProcess.php" method="post">
         <table>
             <tr><td>작성자</td><td>코멘트</td><td>작성일</td><td>삭제</td></tr>
-            <? $obj->showComment($boardValue->board_id, $nowPage); // 덧글 출력 기능 (게시글 번호, 현재 페이지 번호) ?>
+            <input type="hidden" name="delComment" value="delComment">
+            <input type="hidden" name="boardID" value="<?php echo $boardValue->board_id; ?>">
+            <input type="hidden" name="nowPage" value="<?php echo $nowPage; ?>">
+            <? $obj->showComment($boardValue->board_id); // 덧글 출력 기능 (게시글 번호, 현재 페이지 번호) ?>
         </table>
     </form>
 
