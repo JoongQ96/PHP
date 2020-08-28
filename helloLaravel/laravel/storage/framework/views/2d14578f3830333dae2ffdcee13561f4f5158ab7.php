@@ -1,0 +1,1 @@
+<?php /**PATH C:\helloLaravel\laravel\resources\views/painters/edit.blade.php ENDPATH**/ ?>
