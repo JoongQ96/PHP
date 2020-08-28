@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html>
 <head>
@@ -10,14 +11,14 @@
 <body>
 <fieldset style="width: 50%">
     <legend>글보기 글번호<?php echo $boardValue->board_id; ?></legend>
-    <form action="../controller/modifyProcess.php" method="post">
+    <form action="../controller/modifyController.php" method="post">
         <table>
             <tr><td>제목</td><td><input type="text" value="<?php echo $boardValue->title; ?>" name="title"></td></tr>
             <tr>
                 <td>작성자</td>
                 <td>
-                    <?php echo $_SESSION['id']; ?>
-                    <input type="hidden" name="name" value="<?php echo $_SESSION['id']; ?>">
+                    <?php echo $boardValue->user_name; ?>
+                    <input type="hidden" value="<?php echo $boardValue->user_name; ?>" name="name">
                 </td>
             </tr>
             <tr><td colspan="2"><textarea name='content' cols='80' rows='20'><?php echo $boardValue->contents; ?></textarea></td></tr>

@@ -8,12 +8,6 @@ $commentUser      = $_GET['commentUser'];     // 덧글 작성 유저 이름
 $commentContent   = $_GET['commentContent'];  // 덧글 내용
 $commentPw        = $_GET['commentPw'];       // 덧글 비밀번호
 
-
-echo "commentParentNum : ".$commentParentNum."<br>";
-echo "commentUser : ".$commentUser."<br>";
-echo "commentTitle : ".$commentContent."<br>";
-echo "commentPw : ".$commentPw."<br>";
-
 // 유효성 검사
 if (isset($commentUser) && isset($commentContent) && isset($commentPw)){
     // 공란 검사
@@ -38,12 +32,10 @@ if (isset($commentUser) && isset($commentContent) && isset($commentPw)){
             echo "DB에 데이터 입력 실패";
             exit(-1);
         }
-
         // 덧글 등록 완료된 경우
         // 작성한 덧글의 게시글 view.php 로 이동
         echo "<script> alert('덧글이 성공적으로 작성되었습니다.')</script>";
         echo "<script> location.href='view.php?board_id={$commentParentNum}&nowPage={$viewNowPage}'; </script>"; // view.php 로 이동
-
     }
 }
 

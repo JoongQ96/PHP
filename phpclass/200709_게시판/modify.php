@@ -9,15 +9,10 @@
 </head>
 <body>
 <?
-// modify.php
-// board_id 값 획득, 무결성 검사
-// board_id 값 이요 DB로 부터 정보 획득
-// 획득된 필드 정보를 HTML 출력
 echo "<h3>modifty 페이지 입니다.<br>";
 require_once('write_process.php');
 
 $boardID = $_GET['boardID'];    // view에서 hidden으로 받아온 게시판 id 값
-echo "boardID : ".$boardID;
 
 $titleSql = "select * from mybulletin where board_id={$boardID}";
 $selectResult = $db_conn->query($titleSql);
@@ -26,7 +21,6 @@ if ($selectResult->errno > 0) {
     exit(-1);
 }
 $totalRowNum  = $selectResult->fetch_array();
-
 $boardID     = $totalRowNum['board_id'];      // 글 번호
 $userTitle   = $totalRowNum['title'];         // 제목
 $userName    = $totalRowNum['user_name'];     // 작성자
@@ -40,27 +34,10 @@ $checkPasswd = "";                            // 입력 받기 위한 비밀번�
     <legend>글보기 글번호<?php echo $boardID; ?></legend>
     <form action="modify_process.php" method="get">
         <table>
-            <tr>
-                <td>제목</td>
-                <td><input type="text" value="<?php echo $userTitle; ?>" name="changeTitle"></td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td><input type="text" value="<?php echo $userName; ?>" name="changeName"></td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td>
-                    <input type="text" value="<?php echo $checkPasswd; ?>" name="checkPasswd">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea name='changeContent' cols='80' rows='20'>
-                        <?php echo $userContent; ?>
-                    </textarea>
-                </td>
-            </tr>
+            <tr><td>제목</td><td><input type="text" value="<?php echo $userTitle; ?>" name="changeTitle"></td></tr>
+            <tr><td>작성자</td><td><input type="text" value="<?php echo $userName; ?>" name="changeName"></td></tr>
+            <tr><td>비밀번호</td><td><input type="text" value="<?php echo $checkPasswd; ?>" name="checkPasswd"></td></tr>
+            <tr><td colspan="2"><textarea name='changeContent' cols='80' rows='20'><?php echo $userContent; ?></textarea></td></tr>
             <tr>
                 <td colspan="2">
                     <input type="button" name="list" value="글 목록" onclick="location.href='list.php'">

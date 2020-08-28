@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        fieldset {
+            background-color: #eeeeee;
+        }
+
+        legend {
+            background-color: gray;
+            color: white;
+            padding: 5px 10px;
+        }
+        input {
+            margin: 5px;
+            size: 2px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<form action="input_process.php" method="post">
+    <fieldset style="width:400px">
+        <legend> 입력 데이터 갯수를 입력 하세요</legend>
+        <label for="gpa">입력 데이터 갯수</label>
+        <!-- 데이터 입력 갯수 -->
+        <input type="text" id="gpa" name="numOfData" value="5"> <input type="submit" value="입력하기">
+    </fieldset>
+</form>
+</body>
+</html>

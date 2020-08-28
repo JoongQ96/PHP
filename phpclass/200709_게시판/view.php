@@ -21,7 +21,7 @@ if ($hitResult->errno > 0) {
     echo "조회수 증가 실패!";
     exit(-1);
 }
-
+// 선택한 게시글의 쿼리
 $titleSql = "select * from mybulletin where board_id={$pickTitleNum}";
 $selectResult = $db_conn->query($titleSql);
 if ($selectResult->errno > 0) {
@@ -41,12 +41,8 @@ $userContent = $totalRowNum['contents'];      // content
 $searchKeyword = $_GET['keyword'];     // option 선택 keyword
 $searchText    = $_GET['searchText'];  // 검색 내용
 $searchBtn     = $_GET['searchBtn'];   // 검색 버튼 누른 것에 대한 값
-echo "searchKeyword : ".$searchKeyword."<br>";
-echo "searchText : ".$searchText."<br>";
-echo "searchBtn : ".$searchBtn."<br>";
 ////////////////////////////////////////
 $nowPage = $_GET['nowPage'];
-echo "nowPage : ".$nowPage."<br>";
 ?>
 <fieldset style="width: 50%">
     <legend>
@@ -54,29 +50,17 @@ echo "nowPage : ".$nowPage."<br>";
     </legend>
     <form action="modify.php" method="get">
         <table>
-            <tr>
-                <td>제목</td>
-                <td><?php echo $userTitle; ?></td>
-            </tr>
-            <tr>
-                <td>작성자</td><td><?php echo $userName; ?></td>
-            </tr>
-            <tr>
-                <td>작성시간</td><td><?php echo $userDate; ?></td>
-            </tr>
-            <tr>
-                <td>조회수</td><td><?php echo $userHit; ?></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea name='content' cols='80' rows='20' readonly><?php echo $userContent; ?></textarea>
-                </td>
-            </tr>
+            <tr><td>제목</td><td><?php echo $userTitle; ?></td></tr>
+            <tr><td>작성자</td><td><?php echo $userName; ?></td></tr>
+            <tr><td>작성시간</td><td><?php echo $userDate; ?></td></tr>
+            <tr><td>조회수</td><td><?php echo $userHit; ?></td></tr>
+            <tr><td colspan="2"><textarea name='content' cols='80' rows='20' readonly><?php echo $userContent; ?></textarea></td></tr>
             <tr>
                 <td colspan="2">
                     <?php
                         if ($searchKeyword != null){    // 검색 한 경우
-                            echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='list.php?board_id={$boardID}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn={$searchBtn}&nowPage={$nowPage}'\">";
+                            echo "<input type='button' name='list' value='글 목록' 
+                            onclick=\"location.href='list.php?board_id={$boardID}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn={$searchBtn}&nowPage={$nowPage}'\">";
                         } else{
                             if ($nowPage != null){      // 검색 안한 경우, nowPage 있을때
                                 echo "<input type='button' name='list' value='글 목록' onclick=\"location.href='list.php?nowPage={$nowPage}'\">";
@@ -95,21 +79,10 @@ echo "nowPage : ".$nowPage."<br>";
     <br><br>
     <form action="write_comment_process.php" method="get">
         <table>
-            <tr>
-                <td>댓글</td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td><input type="text" name="commentUser"></td>
-            </tr>
-            <tr>
-                <td>코멘트</td>
-                <td><input type="text" name="commentContent"></td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td><input type="text" name="commentPw"></td>
-            </tr>
+            <tr><td>댓글</td></tr>
+            <tr><td>작성자</td><td><input type="text" name="commentUser"></td></tr>
+            <tr><td>코멘트</td><td><input type="text" name="commentContent"></td></tr>
+            <tr><td>비밀번호</td><td><input type="text" name="commentPw"></td></tr>
             <tr>
                 <td>
                     <input type="hidden" name="CheckBoardID" value="<?php echo $boardID; ?>">
@@ -120,16 +93,12 @@ echo "nowPage : ".$nowPage."<br>";
         </table>
     </form>
     <br><br>
+    <form action="delete_comment.php" method="get">
     <table>
-        <tr>
-            <td>작성자</td>
-            <td>코멘트</td>
-            <td>작성일</td>
-            <td>삭제</td>
-        </tr>
+        <tr><td>작성자</td><td>코멘트</td><td>작성일</td><td>삭제</td></tr>
         <?
         // 덧글 출력 기능
-        $commentViewSql = "select * from mybulletin where board_pid != 0;";
+        $commentViewSql = "select * from mybulletin where board_pid = $boardID;";
         $resultCommentViewSql = $db_conn->query($commentViewSql);
 
         // 덧글 출력
@@ -138,12 +107,20 @@ echo "nowPage : ".$nowPage."<br>";
             echo "<td>".$commentView['user_name']."</td>";
             echo "<td>".$commentView['contents']."</td>";
             echo "<td>".$commentView['reg_date']."</td>";
-//            echo "<td>".삭제버튼 들어가야됨...."</td>"
+            ?>
+            <input type="hidden" name="nowPage" value="<?php echo $nowPage; ?>">
+            <input type="hidden" name="boardID" value="<?php echo $boardID; ?>">
+            <input type="hidden" name="commentUserID" value="<?php echo $commentView['board_id']; ?>">
+            <input type="hidden" name="commentUserName" value="<?php echo $commentView['user_name']; ?>">
+            <input type="hidden" name="commentUserContents" value="<?php echo $commentView['contents']; ?>">
+            <input type="hidden" name="commentUserDate" value="<?php echo $commentView['reg_date']; ?>">
+            <?
+            echo "<td><input type='submit' name='deleteComment' value='삭제'></td>";
             echo "</tr>";
         }
-
         ?>
     </table>
+    </form>
 </fieldset>
 </body>
 </html>

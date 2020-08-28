@@ -7,26 +7,43 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
+        * {
+            margin: 0;
+            padding:0;
+        }
+
         .myTable {
-            width: 100%;
+            width: 95%;
             border: 10px solid #444444;
             border-collapse: collapse;
             padding: 10px;
+            margin: 5px;
         }
+        .container {
+            width: 95%;
+            display: flex;
+            border: 1px solid black;
+            margin: 5px;
+        }
+        #content1 {
+            order: 2;
+        }
+        #content2 {
+            order: 8;
+        }
+
         nav {
-
             width: 15%;
-
-            height: 600px;
-
+            height: max-content;
+            margin: 3px;
             border: 1px solid black;
 
         }
 
-         .table {
-             border-collapse: collapse;
-             border-top: 3px solid #168;
-         }
+        .table {
+            border-collapse: collapse;
+            border-top: 3px solid #168;
+        }
         .table th {
             color: #168;
             background: #f0f6f9;
@@ -35,6 +52,11 @@
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
+        }
+        article{
+            padding: 10px;
+            margin: 3px;
+            border: 1px solid black;
         }
     </style>
     <title>JoongKyu_Board</title>
@@ -49,8 +71,8 @@
     </table>
 </header>
 <hr>
-<div id="main">
-    <nav>
+<div class="container">
+    <nav id="content1">
         <h3>메인메뉴</h3>
         <!------------------------------------------- 로그인 ------------------------------------------------------------------->
         <?php
@@ -94,10 +116,10 @@
         <?php endif; ?>
     </nav>
 
-    <article>
+    <article id="content2">
         <h2>Main Content</h2>
-        <!------------------------------------------- 게시판 ------------------------------------------------------------------->
-        <form action="../controller/viewProcess.php" method="get">
+        <!------------------------------------------- 리스트 출력 ---------------------------------------------------------------->
+        <form action="view.php" method="get">
             <table class="table">
                 <tr><th colspan="5">JoongKyu 게시판</th></tr>
                 <tr style="border: #2b303b"><td>번호</td><td>제목</td><td>작성자</td><td>조회수</td><td>날짜</td></tr>
@@ -134,7 +156,6 @@
                 echo "endPageNum : ".$endPageNum."<br>";
 
                 ?>
-                <input type="hidden" name="board_id" value="">
                 <input type="hidden" name="thisPage" value="<?php echo $clickPageButton; ?>">
             </table>
         </form>
@@ -269,10 +290,10 @@
 
 
     </article>
-    <aside>
-        <h3>aside</h3>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, cumque.
-    </aside>
+<!--    <aside>-->
+<!--        <h3>aside</h3>-->
+<!--        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, cumque.-->
+<!--    </aside>-->
 </div>
 <footer>
     <h3>footer</h3>

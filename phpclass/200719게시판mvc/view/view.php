@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <fieldset style="width: 50%">
     <legend>글보기 글번호<?php echo $boardValue->board_id; ?></legend>
     <!-- list에서 선택한 게시글 출력 -->

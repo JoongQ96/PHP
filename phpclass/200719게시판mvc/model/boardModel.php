@@ -65,13 +65,14 @@ class board_Query {
         return $selectResult->fetch_array();
     }
     ////////////////////////////////////////////////////////
+    // 교수님 코드 보고 추가해봄..
     public function selectBoardId($boardID){
         $sql = "select * from board where board_id='{$boardID}'";
         $result = board_Query::$db_conn->query($sql);
 
-//        if (!($result)) {
-//            // prtErrorMsg();
-//        }
+        if (!($result)) {
+            // prtErrorMsg();
+        }
 
         return $result->fetch_object();
 
@@ -194,9 +195,9 @@ class board_Query {
             echo "<tr>";
             echo "<td>".$showRow['board_id']."</td>";
             if ($searchKeyword == null){    // 검색을 안한 경우
-                echo "<td><a href='../controller/viewProcess.php?board_id={$showRow['board_id']}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
+                echo "<td><a href='../controller/viewController.php?board_id={$showRow['board_id']}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
             }else{                          // 검색을 한 경우
-                echo "<td><a href='../controller/viewProcess.php?board_id={$showRow['board_id']}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn=검색&thisPage={$clickPageButton}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
+                echo "<td><a href='../controller/viewController.php?board_id={$showRow['board_id']}&keyword={$searchKeyword}&searchText={$searchText}&searchBtn=검색&thisPage={$clickPageButton}&nowPage={$clickPageButton}'>".$showRow['title']."</a></td>";
             }
             echo "<td>".$showRow['user_name']."</td>";
             echo "<td>".$showRow['hits']."</td>";

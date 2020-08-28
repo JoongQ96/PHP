@@ -23,7 +23,6 @@ if ($result = $db_conn->query($sql_stmt))
 else
     echo "데이터 삽입 실패<br>";
 
-
 // customer 테이블 내 레코드 검색 SQL문 작성
 $sql_stmt = 'select * from customer';
 
