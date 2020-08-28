@@ -1,0 +1,14 @@
+DROP DATABASE IF EXISTS ycj_test;
+create database ycj_test;
+use ycj_test;
+DROP TABLE IF EXISTS customer;
+
+create table customer (
+customerid int(10) unsigned auto_increment,
+id char(50) not null,
+password char(20) not null,
+name char(50) not null,
+level char(10) not null,
+age int(10) not null.
+PRIMARY KEY(customerid)
+);

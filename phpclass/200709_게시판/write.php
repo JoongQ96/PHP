@@ -9,7 +9,6 @@
 </head>
 <body>
 <script>
-
     // 공란 검사, 버튼 클릭시 실행 되는 함수
     function login(){
         // loginForm 설정, JavaScript에서 Submit을 제어하기 위해
@@ -30,26 +29,14 @@
         }
     }
 </script>
-
 <fieldset style="width: 50%">
     <legend>글쓰기</legend>
     <form name="loginForm" action="write_process.php" method="get">
         <table>
-            <tr>
-                <td>제목</td>
-                <td><input type='text' size='50%' name='userTitle'></td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td><input type='text' size='50%' name='userName'></td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td><input type='text' size='50%' name='userPassword'></td>
-            </tr>
-            <tr>
-                <td colspan="2"><textarea name='content' cols='80' rows='20'></textarea></td>
-            </tr>
+            <tr><td>제목</td><td><input type='text' size='50%' name='userTitle'></td></tr>
+            <tr><td>작성자</td><td><input type='text' size='50%' name='userName'></td></tr>
+            <tr><td>비밀번호</td><td><input type='text' size='50%' name='userPassword'></td></tr>
+            <tr><td colspan="2"><textarea name='content' cols='80' rows='20'></textarea></td></tr>
             <tr>
                 <td colspan="2">
                     <input type="hidden" name="loginType" value="admin">
